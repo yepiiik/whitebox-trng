@@ -1,0 +1,5 @@
+mmh3==5.2.1
+nistrng==1.2.3
+numpy==2.2.6
+scipy==1.15.3
+xxhash==3.7.0

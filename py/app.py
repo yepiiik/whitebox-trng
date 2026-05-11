@@ -31,7 +31,6 @@ def rando_trng(m: int) -> int:
         # We mask beta to 32 bits to fit the standard seed requirement of the hash library.
         seed = beta & 0xFFFFFFFF
         delta = xxhash.xxh64(k, seed=seed).intdigest()
-        
         # 9: B[i] <- (δ ∧ 1)
         # Bitwise ANDing the hash output with 1 extracts the Least Significant Bit (LSB)
         bit = delta & 1
@@ -41,6 +40,11 @@ def rando_trng(m: int) -> int:
         
         # 10: i <- i + 1 (Implicit in Python's for-loop)
         
+        if _ == m - 1:  # Print the last alpha for debugging
+            print(f"Alpha (CPU Clock): {alpha}")
+            print(f"Length of K: {len(k)} bytes")
+            print(f"Delta (Hash Output): {delta}")
+
     # Combine the list of binary strings and parse as base-2 integer
     binary_string = "".join(random_bits)
     return int(binary_string, 2)

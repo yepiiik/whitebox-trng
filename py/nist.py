@@ -1,22 +1,31 @@
 import numpy as np
-from nistrng import pack_sequence, unpack_sequence, check_eligibility_all_battery, run_all_battery, SP800_22R1A_BATTERY
+from nistrng import check_eligibility_all_battery, run_all_battery, SP800_22R1A_BATTERY
 
-def run_full_nist_suite(bits):
-    # Convert the list of bits into a numpy array of 8-bit integers
-    binary_sequence = np.array(bits, dtype=int)
+# 1. Read your file
+with open("batch1m.txt", "r") as f:
+    binary_string = f.read().strip()
 
-    # Check which NIST tests are eligible for the given bit length
-    eligible_battery: dict = check_eligibility_all_battery(binary_sequence, SP800_22R1A_BATTERY)
+# Convert the string to a numpy array of integers
+binary_array = np.array([int(bit) for bit in binary_string], dtype=int)
 
-    print(f"Eligible tests for {len(bits)} bits: {len(eligible_battery)}")
+# 2. Run the NIST tests
+print("Starting NIST tests (this might take a minute)...")
+eligible_battery: dict = check_eligibility_all_battery(binary_array, SP800_22R1A_BATTERY)
+results = run_all_battery(binary_array, eligible_battery, False)
 
-    # Run all eligible tests
-    results = run_all_battery(binary_sequence, eligible_battery, False)
+# 3. Print the results
+print(f"{'Test Name':<32} | {'Status':<6} | {'Score (P-Value)'}")
+print("-" * 65)
 
-    print("\n--- Full NIST Test Results ---")
-    for result, elapsed_time in results:
-        test_passed = result.passed
-        print(f"Test: {result.name}")
-        print(f" - Passed: {test_passed}")
-        # Changed .p_value to .score
-        print(f" - P-Value/Score: {result.score}\n")
+for result, elapsed_time in results:
+    status = "PASS" if result.passed else "FAIL"
+    
+    # Some tests return a single float, others return a list of floats
+    if isinstance(result.score, (list, np.ndarray)):
+        # Format a list of scores to 4 decimal places
+        score_str = ", ".join([f"{float(s):.4f}" for s in result.score])
+    else:
+        # Format a single score to 6 decimal places
+        score_str = f"{float(result.score):.6f}"
+        
+    print(f"{result.name:<32} | {status:<6} | {score_str}")

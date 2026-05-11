@@ -68,6 +68,6 @@ void generate_nist_data(const std::string& filename, int total_bits) {
 
 int main() {
     // Generate 10 million bits for NIST testing
-    generate_nist_data("batch1m.txt", 1000000);
+    generate_nist_data("batch1m.txt", 2000000);
     return 0;
 }

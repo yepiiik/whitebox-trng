@@ -28,4 +28,4 @@ Deprecated demo version that, eventually, will be refreshed later.
 ## NIST 800.22
 
 We successfully confirmed author's results of NIST 800.22 statistical test.
-both results and binaries of official NIST 800.22 Suit is attached in sts-2.1.2 folder.
+The results are attached in [finalAnalysisReport.txt](https://github.com/yepiiik/whitebox-trng/blob/master/finalAnalysisReport.txt) file.

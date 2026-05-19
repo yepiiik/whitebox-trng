@@ -2,3 +2,4 @@ venv/
 __pychache__/
 .vscode/
 build
+sts-2.1.2

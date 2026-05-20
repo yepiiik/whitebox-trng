@@ -1,6 +1,6 @@
 # Application-level True Random Number Generator
 
-We've implemented TRNG based on a scientific article.
+We've implemented 9.5 Mbit/second TRNG (True Random Number Generator) based on a scientific article.
 
 ## Advantage of Rando TRNG
 
@@ -14,6 +14,10 @@ This TRNG generates output bit by bit - therefore it can be adjusted to any prac
 | OS Kernel     | ~4500 for 64 bits  | Open-Source/ Close-Source | 100+ OS events                                 | OS                 |
 | Environmental | ~60000 for 64 bits | Open-Source/ Close-Source | Physical                                       | Pereferial Devices |
 | Hardware      | ~400 for 64 bits   | Close-Source              | Physical                                       | Chip itself        |
+
+### SpeedTest Results
+
+- Average result generating 9.5 Mbit/second of random bits. (Tested with implemented benchmark_trng_throughput() function)
 
 ## Implementation
 
